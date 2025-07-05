@@ -1,103 +1,158 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const features = [
+    {
+      icon: "/file.svg",
+      title: "Feature One",
+      desc: "Short description of your first feature.",
+    },
+    {
+      icon: "/window.svg",
+      title: "Feature Two",
+      desc: "Short description of your second feature.",
+    },
+    {
+      icon: "/globe.svg",
+      title: "Feature Three",
+      desc: "Short description of your third feature.",
+    },
+  ];
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
+  const prev = () => {
+    setDirection(-1);
+    setCurrent((c) => (c === 0 ? features.length - 1 : c - 1));
+  };
+  const next = () => {
+    setDirection(1);
+    setCurrent((c) => (c === features.length - 1 ? 0 : c + 1));
+  };
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="min-h-screen flex flex-col font-[family-name:var(--font-geist-sans)] bg-white text-black dark:bg-black dark:text-white">
+      {/* Navigation */}
+      <nav className="flex justify-between items-center px-8 py-6 border-b border-gray-200 dark:border-gray-800">
+        <div className="flex items-center gap-2">
+          <Image src="/next.svg" alt="Logo" width={40} height={40} />
+          <span className="text-xl font-bold tracking-tight">Your Business</span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div className="flex gap-6 text-sm font-medium">
+          <a href="#features" className="hover:underline">
+            Features
+          </a>
+          <a href="#about" className="hover:underline">
+            About
+          </a>
+          <Link href="/contact" className="hover:underline">
+            Contact
+          </Link>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <header className="flex flex-col items-center justify-center flex-1 px-4 py-16 text-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black">
+        <h1 className="text-4xl sm:text-6xl font-extrabold mb-4">
+          Welcome to Your Business
+        </h1>
+        <p className="text-lg sm:text-2xl max-w-2xl mb-8 text-gray-600 dark:text-gray-300">
+          Empowering your business with modern solutions. Fast, reliable, and
+          tailored for you.
+        </p>
+        <Link
+          href="/contact"
+          className="inline-block bg-black text-white dark:bg-white dark:text-black px-8 py-3 rounded-full font-semibold shadow hover:bg-gray-800 dark:hover:bg-gray-200 transition"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          Get Started
+        </Link>
+      </header>
+
+      {/* Features Section */}
+      <section
+        id="features"
+        className="py-16 px-4 bg-white dark:bg-black border-t border-b border-gray-100 dark:border-gray-800"
+      >
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8">Features</h2>
+          <div className="relative flex items-center justify-center max-w-md mx-auto h-56">
+            <button
+              aria-label="Previous feature"
+              onClick={prev}
+              className="absolute left-0 z-10 bg-gray-100 dark:bg-gray-800 rounded-full p-2 shadow hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              style={{ top: "50%", transform: "translateY(-50%)" }}
+            >
+              &#8592;
+            </button>
+            <div className="w-full px-8 overflow-hidden h-56 flex items-center justify-center relative">
+              <div
+                key={current}
+                className={`transition-transform duration-500 ease-in-out absolute w-full flex flex-col items-center ${direction === 1 ? 'animate-slide-in-right' : direction === -1 ? 'animate-slide-in-left' : ''}`}
+                style={{ position: 'absolute' }}
+              >
+                <Image
+                  src={features[current].icon}
+                  alt={features[current].title}
+                  width={48}
+                  height={48}
+                  className="mx-auto mb-4"
+                />
+                <h3 className="font-semibold mb-2">{features[current].title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{features[current].desc}</p>
+              </div>
+            </div>
+            <button
+              aria-label="Next feature"
+              onClick={next}
+              className="absolute right-0 z-10 bg-gray-100 dark:bg-gray-800 rounded-full p-2 shadow hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              style={{ top: "50%", transform: "translateY(-50%)" }}
+            >
+              &#8594;
+            </button>
+          </div>
+          <div className="flex justify-center gap-2 mt-6">
+            {features.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-3 h-3 rounded-full ${current === i ? "bg-black dark:bg-white" : "bg-gray-300 dark:bg-gray-700"}`}
+                aria-label={`Go to feature ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section
+        id="about"
+        className="py-16 px-4 bg-gray-50 dark:bg-gray-900"
+      >
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-6">About Us</h2>
+          <p className="text-lg text-gray-700 dark:text-gray-300">
+            Write a short paragraph about your business, your mission, and what
+            makes you unique. This is your chance to connect with your audience.
+          </p>
+        </div>
+      </section>
+
+      {/* Contact Section removed. Use /contact page instead. */}
+
+      {/* Footer */}
+      <footer className="py-8 text-center text-gray-500 text-sm border-t border-gray-100 dark:border-gray-800">
+        &copy; {new Date().getFullYear()} Your Business. All rights reserved.
       </footer>
     </div>
   );
 }
+
+// Tailwind CSS custom animations
+// Add these to your global CSS if not already present:
+// .animate-slide-in-right { animation: slide-in-right 0.5s forwards; }
+// .animate-slide-in-left { animation: slide-in-left 0.5s forwards; }
+// @keyframes slide-in-right { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+// @keyframes slide-in-left { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
