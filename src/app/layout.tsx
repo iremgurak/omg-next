@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
+import AboutDropdown from "./components/AboutDropdown";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,14 +22,16 @@ export const metadata: Metadata = {
 
 function Navbar() {
   return (
-    <nav className="flex justify-between items-center px-8 py-6 border-b border-gray-200 dark:border-gray-800">
+    <nav className="flex justify-between items-center px-8 py-6 border-b border-gray-200 dark:border-gray-800 mb-2">
       <div className="flex items-center gap-2">
-        <Image src="/next.svg" alt="Logo" width={40} height={40} />
-        <span className="text-xl font-bold tracking-tight">Your Business</span>
+        <Link href="/" className="flex items-center gap-2 group">
+          <Image src="/next.svg" alt="Logo" width={40} height={40} />
+          <span className="text-xl font-bold tracking-tight group-hover:underline">Your Business</span>
+        </Link>
       </div>
-      <div className="flex gap-6 text-sm font-medium">
-        <Link href="/" className="hover:underline">Home</Link>
-        <Link href="/about" className="hover:underline">About</Link>
+      <div className="flex gap-6 text-sm font-medium items-center">
+        {/* <Link href="/" className="hover:underline">Home</Link> */}
+        <AboutDropdown />
         <Link href="/products" className="hover:underline">Products</Link>
         <Link href="/blog" className="hover:underline">Blog</Link>
         <Link href="/contact" className="hover:underline">Contact</Link>
