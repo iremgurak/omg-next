@@ -1,30 +1,12 @@
 "use client";
 
+
+import { products } from "./products/productData";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const products = [
-    {
-      icon: "/file.svg",
-      title: "Aluminium",
-      desc: "High-quality aluminium for industrial and commercial use.",
-      photo: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      icon: "/window.svg",
-      title: "Steel",
-      desc: "Durable steel products for construction and manufacturing.",
-      photo: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      icon: "/globe.svg",
-      title: "Copper",
-      desc: "Premium copper for electrical and plumbing applications.",
-      photo: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80",
-    },
-  ];
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0); // -1 for left, 1 for right
   // Auto-slide effect
@@ -34,7 +16,7 @@ export default function Home() {
       setCurrent((c) => (c === products.length - 1 ? 0 : c + 1));
     }, 4000);
     return () => clearInterval(timer);
-  }, [products.length]);
+  }, []); // products is static, so no need for dependency
 
   const prev = () => {
     setDirection(-1);
@@ -91,13 +73,13 @@ export default function Home() {
             <div className="w-full h-full overflow-hidden flex items-center justify-center relative">
               {products.map((product, i) => (
                 <Link
-                  href="/products"
-                  key={i + '-' + current + '-' + direction}
+                  href={`/products/${product.id}`}
+                  key={product.id + '-' + current + '-' + direction}
                   className={`transition-transform duration-500 ease-in-out absolute w-full h-full flex flex-col items-center justify-end cursor-pointer 
                     ${i === current ? (direction === 1 ? 'animate-slide-in-right' : direction === -1 ? 'animate-slide-in-left' : '') : 'hidden'}`}
                   style={{ position: 'absolute', height: '100%' }}
                   tabIndex={i === current ? 0 : -1}
-                  aria-label={`Go to products page for ${product.title}`}
+                  aria-label={`Go to product page for ${product.title}`}
                 >
                   <div className="absolute inset-0 w-full h-full pointer-events-none">
                     <Image
@@ -119,7 +101,7 @@ export default function Home() {
                       style={{ backgroundColor: 'white' }}
                     />
                     <h3 className="font-semibold text-2xl mb-2 text-white drop-shadow-lg">{product.title}</h3>
-                    <p className="text-gray-100 text-lg drop-shadow-lg">{product.desc}</p>
+                    <p className="text-gray-100 text-lg drop-shadow-lg">{product.description}</p>
                   </div>
                 </Link>
               ))}
