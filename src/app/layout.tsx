@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+
 import Image from "next/image";
 import Link from "next/link";
 import AboutDropdown from "./components/AboutDropdown";
+import ProductsDropdown from "./components/ProductsDropdown";
+import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata } from "next";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +34,7 @@ function Navbar() {
       <div className="flex gap-6 text-sm font-medium items-center">
         {/* <Link href="/" className="hover:underline">Home</Link> */}
         <AboutDropdown />
-        <Link href="/products" className="hover:underline">Products</Link>
+        <ProductsDropdown />
         <Link href="/blog" className="hover:underline">Blog</Link>
         <Link href="/contact" className="hover:underline">Contact</Link>
       </div>
